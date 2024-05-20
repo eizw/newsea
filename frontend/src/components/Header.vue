@@ -1,6 +1,6 @@
 <template>
-    <header class="sticky top-5 items-center flex justify-center">
-        <img class="flex text-center justify-center" src = "@/assets/newsea.svg" alt="newsea"/>
+    <header class="sticky mt-10 items-center flex justify-center">
+        <img class="text-center flex w-max" src="@/assets/newsea.svg">
     </header>
 </template>
 
