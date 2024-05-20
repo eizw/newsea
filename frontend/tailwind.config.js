@@ -7,16 +7,15 @@ export default {
     extend: {
       colors: {
         "newsea-primary": "#248BF8",
-        "newsea-primary": "#004B80",
+        "newsea-secondary": "#004B80",
       }
     },
     fontFamily: {
       NotoSerif: ["Noto Serif, serif"],
     },
     container: {
-      width: "70vw",
       padding: "1rem",
-      center: true,
+      // center: true,
     },
     screens: {
       sm: "640px",

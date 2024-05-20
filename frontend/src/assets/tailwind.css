@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .c-70 {
+        @apply w-7/12 mx-auto;
+    }
+    .main-text-hover {
+        @apply transition ease-in-out delay-75 text-black hover:text-newsea-primary;
+    }
+
+    /* .news-card {
+        @apply w-full sm:w-3/6;
+    } */
+}
