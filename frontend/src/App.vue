@@ -1,5 +1,6 @@
 <template>
   <div class="flex flex-col min-h-screen font-NotoSerif bg-white">
+    <Header />
     <Nav />
     <RouterView />
   </div>
@@ -8,5 +9,6 @@
 <script setup lang="ts">
   import { RouterView } from 'vue-router';
   import Nav from '@/components/Nav.vue';
+  import Header from '@/components/Header.vue';
 
 </script>

@@ -14,6 +14,7 @@ export default {
       NotoSerif: ["Noto Serif, serif"],
     },
     container: {
+      width: "70vw",
       padding: "1rem",
       center: true,
     },
