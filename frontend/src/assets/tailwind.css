@@ -4,10 +4,14 @@
 
 @layer components {
     .c-70 {
-        @apply w-7/12 max-w-screen-lg mx-auto;
+        @apply w-7/12 max-w-7xl mx-auto;
     }
     .main-text-hover {
-        @apply transition ease-in-out delay-75 text-black hover:text-newsea-primary;
+        @apply transition ease-in-out delay-75 hover:text-newsea-primary;
+    }
+
+    .dark-text-hover {
+        @apply transition ease-in-out delay-75  hover:text-newsea-primary;
     }
 
     /* .news-card {

@@ -1,6 +1,12 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
+
+const defaultNews = {
+  title: 'No title provided',
+  urlToImg: '@/assets/newsea.svg'
+}
+
 export const useStore = defineStore('store', {
   state: () => {
     return { 
@@ -17,10 +23,11 @@ export const useStore = defineStore('store', {
     }
   },
   getters: {
+    getTopWithImg(): any {
+      return this.topNews.filter((news) => news.urlToImage)
+    },
+    getLocalWithImg(): any {
+      return this.localNews.filter((news) => news.urlToImage)
+    }
   }
 })
-
-interface News {
-  title: 'No title provided',
-  urlToImg: '@/assets/newsea.svg'
-}

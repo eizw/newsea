@@ -62,7 +62,7 @@
         .catch(err => {
           console.log(err.response.data)
         })
-    
+    console.log('eftched')
     loaded.value = true;
   }
 

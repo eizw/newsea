@@ -3,6 +3,7 @@
     <Header />
     <Nav />
     <RouterView />
+    <Footer />
   </div>
 </template>
 

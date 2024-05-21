@@ -5,7 +5,7 @@
 
             <RouterLink :to="{name: 'home'}" v-for="x in topics" class="flex-1 justify-start">
                 <div class="flex">
-                    <p class="text-l font-bold main-text-hover">{{ x.charAt(0).toUpperCase() + x.slice(1) }}</p>
+                    <p class="text-l font-bold text-black main-text-hover">{{ x.charAt(0).toUpperCase() + x.slice(1) }}</p>
                 </div>
             </RouterLink>
 
