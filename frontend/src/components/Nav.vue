@@ -1,9 +1,10 @@
 <template>
     <div class="mt-5 mb-5 bg-white shadow-lg border-t-slate-400 border-t">
         <nav class="w-full flex flex-col items-center container
-            gap-7 text-newsea-primary sm:flex-row sm:c-70 py-4">
-            <RouterLink :to="{name: 'home'}" v-for="x in topics" class="flex-1">
-                <div class="flex justify-left">
+            gap-7 text-newsea-primary sm:flex-row sm:w-full md:c-70 py-4">
+
+            <RouterLink :to="{name: 'home'}" v-for="x in topics" class="flex-1 justify-start">
+                <div class="flex">
                     <p class="text-l font-bold main-text-hover">{{ x.charAt(0).toUpperCase() + x.slice(1) }}</p>
                 </div>
             </RouterLink>

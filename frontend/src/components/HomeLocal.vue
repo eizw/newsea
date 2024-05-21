@@ -1,5 +1,6 @@
 <template>
-    <div class="flex">
+    <div class="flex flex-col sm:flex-row gap-6">
+        
         
     </div>
 </template>
