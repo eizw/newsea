@@ -1,13 +1,15 @@
 <template>
-  <main class="w-full flex flex-col md:w-full lg:c-70 px-12 lg:px-0" v-if="loaded">
-    <HomeMain class="flex-1"/>
+  <main class="w-full flex flex-col" v-if="loaded">
+    <HomeMain class="flex-1 c-home"/>
     <HomeLocal class="flex-1"/>
+    <HomeSearch class="flex-1"/>
   </main>
 </template>
 
 <script setup lang="ts">
   import HomeMain from'@/components/HomeMain.vue';
   import HomeLocal from '@/components/HomeLocal.vue';
+  import HomeSearch from '@/components/HomeSearch.vue';
   import { useStore } from '@/stores/store';
   import { ref, watch } from 'vue';
   import axios from 'axios'

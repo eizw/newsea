@@ -1,25 +1,28 @@
 <template>
-    <div class="flex flex-col w-full gap-6 px-5 py-6 bg-newsea-secondary">
-        <p class="text-white text-4xl font-bold">Happening in Malaysia</p>
-        <div class="flex gap-4 border-b">
-            <NewsCard 
-                class="flex-1"
-                v-for="i in 3" :key="i" 
-                :hasImage="false" :isDark="true" 
-                :news="{title: news[i-1].title, hasImg: false}"
-            />
+    <div class="w-full py-14 mt-9 bg-newsea-secondary">
+        <div class="flex gap-6 flex-col c-home">
+            <p class="text-white text-4xl font-bold">Happening in Malaysia</p>
+            <div class="flex flex-col gap-4 md:flex-row md:border-b">
+                <NewsCard 
+                    class="flex-1"
+                    v-for="i in 3" :key="i" 
+                    :hasImage="false" :isDark="true" 
+                    :news="{title: news[i-1].title, hasImg: false}"
+                />
+
+            </div>
+            <div class="hidden md:flex gap-4">
+                <NewsCard 
+                    class="flex-1"
+                    v-for="i in 3" :key="i" 
+                    :hasImage="false" :isDark="true" 
+                    :news="{title: news[i+2].title, hasImg: false}"
+                />
+
+            </div>
+            <p class="text-right text-xl text-white">SEE MORE</p>
 
         </div>
-        <div class="flex gap-4">
-            <NewsCard 
-                class="flex-1"
-                v-for="i in 3" :key="i" 
-                :hasImage="false" :isDark="true" 
-                :news="{title: news[i+2].title, hasImg: false}"
-            />
-
-        </div>
-        <p class="text-right text-xl text-white">SEE MORE</p>
     </div>
 </template>
 
