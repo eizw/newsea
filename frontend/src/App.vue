@@ -1,8 +1,11 @@
 <template>
   <div class="flex flex-col min-h-screen font-NotoSerif bg-white">
-    <Header />
-    <Nav />
-    <RouterView />
+    <div class="flex flex-col min-h-screen">
+      <Header />
+      <Nav />
+      <RouterView />
+
+    </div>
     <Footer />
   </div>
 </template>

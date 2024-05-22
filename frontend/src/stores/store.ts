@@ -12,6 +12,9 @@ export const useStore = defineStore('store', {
     return { 
       topNews: [] as any[],
       localNews: [] as any[],
+      searchHistory: {} as {number: any},
+      pageSize: 15 as number,
+      apiKey: import.meta.env.VITE_NEWSAPI_KEY,
     }
   },
   actions: {
@@ -20,7 +23,8 @@ export const useStore = defineStore('store', {
     },
     setLocal(news: any) {
       this.localNews = news;
-    }
+    },
+    // ! Limit history to 3 pages
   },
   getters: {
     getTopWithImg(): any {

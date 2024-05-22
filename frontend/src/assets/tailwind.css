@@ -6,6 +6,11 @@
     .c-70 {
         @apply w-7/12 max-w-7xl mx-auto px-3;
     }
+
+    .c-page {
+        @apply w-full flex flex-col;
+    }
+
     .main-text-hover {
         @apply transition ease-in-out delay-75 hover:text-newsea-primary;
     }

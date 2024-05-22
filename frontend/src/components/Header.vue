@@ -1,7 +1,7 @@
 <template>
-    <header class="mt-10 mb-3 items-center flex justify-center">
-        <RouterLink :to="{ name: 'home' }">
-            <img class="text-center flex w-max" src="@/assets/newsea.svg">
+    <header class="my-4 md:mt-10 md:mb-8 items-center flex justify-center">
+        <RouterLink :to="{ name: 'home' }" class="flex justify-center">
+            <img class="text-center w-7/12 sm:w-max" src="@/assets/newsea.svg">
 
         </RouterLink>
     </header>

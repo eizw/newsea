@@ -1,5 +1,5 @@
 <template>
-  <main class="w-full flex flex-col" v-if="loaded">
+  <main class="c-page" v-if="loaded">
     <HomeMain class="flex-1 c-home"/>
     <HomeLocal class="flex-1"/>
     <HomeSearch class="flex-1"/>
@@ -15,12 +15,11 @@
   import axios from 'axios'
 
 
-  const api: string = 'https://newsapi.org/'
-  const apiKey: string = import.meta.env.VITE_NEWSAPI_KEY;
+  const api: string = 'https://newsapi.org/v2/top-headlines/'
   const store = useStore();
   const config = {
     headers: {
-      'Authorization': apiKey,
+      'Authorization': store.apiKey,
       'Content-type': 'application/x-www-form-urlencoded',
     },
   }
@@ -35,7 +34,7 @@
 
   async function initFetch() {
     if (store.topNews.length == 0)
-      await axios.get(api + 'v2/top-headlines/', {
+      await axios.get(api, {
           ...config,
           params: {
             country: 'us',
@@ -50,7 +49,7 @@
         })
     
     if (store.localNews.length == 0)
-      await axios.get(api + 'v2/top-headlines/', {
+      await axios.get(api, {
           ...config,
           params: {
             category: 'general',
