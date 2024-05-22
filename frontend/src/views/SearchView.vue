@@ -67,12 +67,16 @@
         pageSize: store.pageSize,
     }
 
-    searchNews()
     watch(() => route.query, (newQuery, oldQuery) => {
-        loading.value = true
-        news.value = [];
-        totalResults.value = 0;
-        searchNews()
+        if (newQuery != oldQuery) {
+            loading.value = true
+            news.value = [];
+            totalResults.value = 0;
+            searchNews()
+
+        }
+    }, {
+        immediate: true
     })
 
     const submit = () => {
