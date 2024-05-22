@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-5 mb-5 bg-white shadow-lg border-t-slate-400 border-t">
+    <div class="sticky mt-5 mb-5 top-0 bg-white shadow-lg border-t-slate-400 border-t">
         <nav class="w-full flex flex-col items-center container
             gap-7 text-newsea-primary sm:flex-row sm:w-full md:c-70 py-4">
 

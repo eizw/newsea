@@ -1,5 +1,5 @@
 <template>
-    <header class="sticky mt-10 mb-3 items-center flex justify-center">
+    <header class="mt-10 mb-3 items-center flex justify-center">
         <RouterLink :to="{ name: 'home' }">
             <img class="text-center flex w-max" src="@/assets/newsea.svg">
 

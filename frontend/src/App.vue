@@ -12,6 +12,7 @@
   import { ref } from 'vue';
   import Nav from '@/components/Nav.vue';
   import Header from '@/components/Header.vue';
+  import Footer from '@/components/Footer.vue'
   import { useStore } from '@/stores/store';
   import axios from 'axios'
 
