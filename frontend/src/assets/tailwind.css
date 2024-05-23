@@ -15,6 +15,10 @@
         @apply transition ease-in-out delay-75 hover:text-newsea-primary;
     }
 
+    .main-btn-hover {
+        @apply hover:hover:bg-blue-800 hover:border-slate-200 transition delay-75;
+    }
+
     .dark-text-hover {
         @apply transition ease-in-out delay-75  hover:text-newsea-primary;
     }

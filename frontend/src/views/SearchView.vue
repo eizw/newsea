@@ -20,7 +20,7 @@
                                 <input type="search" id="default-search" class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-s bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
                                     v-model="query" 
                                     placeholder="Search..." required />
-                                <button type="submit">
+                                <button type="submit" v-if="!showFilter">
                                     <i class="fa fa-search text-xl pl-3 text-newsea-primary" aria-hidden="true"></i>
                                 </button>
                             </div>
@@ -28,7 +28,7 @@
                         
                         <div class="mt-auto flex flex-row-reverse text-right">
                             <button class="flex flex-row gap-1 text-white text-base text-right
-                                mt-auto border-2 bg-newsea-primary py-2 px-4 rounded-full hover:bg-slate-200 hover:border-slate-200 transition delay-75" 
+                                mt-auto border-2 bg-newsea-primary py-2 px-4 rounded-full main-btn-hover" 
                                 type="button" v-on:click="toggleFilter()">
                                 <p class="flex-1">Filters</p>
                                 <i class="fa-solid fa-filter pt-1"></i>
@@ -41,12 +41,12 @@
                 </div>
 
                 <div class="flex-1" v-if="showFilter && !loadingSource">
-                    <SearchFilter />
+                    <SearchFilter :q="query"/>
                 </div>
             </div>
 
             
-        
+            
             <div class="py-3">
                 <p v-if="loading">Searching...</p>
                 <ul class="list-none" v-if="news">
@@ -77,20 +77,15 @@
     const showFilter = ref(false)
 
     // ! FILTERS
-    const query = ref(route.query.q || '')
-    const extra = ref(route.query)
-
-    
-
+    const query = ref(route.query.q as string || '')
+    const filters = ref({
+        ...route.query
+    })
 
     const news = ref([] as any)
     const totalResults = ref(0)
 
 
-    const filters = ref({
-        language: route.query.language,
-        page: route.query.page || 1
-    })
 
 
     const api: string = 'https://newsapi.org/v2/everything/'
@@ -113,8 +108,10 @@
     })
 
     watch(() => route.query, (newQuery, oldQuery) => {
+        store.addHistory(oldQuery, news)
+        console.log(newQuery)
         if (newQuery != oldQuery && newQuery != null) {
-            console.log(query)
+            filters.value = newQuery;
             news.value = [];
             totalResults.value = 0;
             searchNews()
@@ -137,13 +134,12 @@
 
     async function searchNews() {
         return
-        if (news.value.length == 0)
+        if (news.value.length == 0) {
             loading.value = true
+            let params = (showFilter) ? filters.value : {q: query.value}
             await axios.get(api, {
                 ...config,
                 params: {
-                    q: route.query.q,
-                    page: route.query.page,
                     ...params,
                 },
             })
@@ -155,6 +151,8 @@
             .catch(err => {
                 console.log(err.response.data)
             })
+
+        }
         loading.value = false
     }
 

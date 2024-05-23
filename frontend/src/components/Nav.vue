@@ -74,7 +74,6 @@
                 path: '/search',
                 query: {
                     q: query.value,
-                    page: 1,
                 }
             })
 

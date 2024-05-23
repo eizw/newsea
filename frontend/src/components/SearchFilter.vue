@@ -1,6 +1,6 @@
 <template>
-    <div class="flex border-2 py-4 px-2 rounded-lg border-slate-300 shadow-md">
-        <form class="flex-1 flex-col flex gap-4 md:flex-row md:flex-wrap divide-x-2" v-on:submit.prevent="submit">
+    <div class="flex flex-col border-2 py-4 px-2 rounded-lg border-slate-300 shadow-md">
+        <div class="flex-1 flex-col flex gap-4 md:flex-row md:flex-wrap divide-x-2">
             <!-- LANGUAGE -->
             <LangFilter @language="setLang" />
 
@@ -18,10 +18,15 @@
 
             <!-- SORT -->
             <SortFilter @sort=""/>
-        </form>
+        </div>
 
-        <div class="flex">
-            
+        <div class="flex flex-row-reverse">
+            <button type="submit" class="text-white bg-newsea-primary main-btn-hover
+                focus:ring-4 rounded-lg border-gray-200 text-sm px-4 py-2"
+                @click="submit"    
+            >
+                Advanced Search
+            </button>
         </div>
     </div>
 </template>
@@ -29,6 +34,7 @@
 <script setup lang="ts">
     import { ref, watch } from 'vue';
     import { useStore } from '@/stores/store';
+    import { useRouter } from 'vue-router';
     import "/node_modules/flag-icons/css/flag-icons.min.css";
 
     import LangFilter from '@/components/filters/LangFilter.vue';
@@ -39,31 +45,49 @@
     import SortFilter from '@/components/filters/SortFilter.vue';
 
     const store = useStore();
+    const router = useRouter();
 
     const sources = ref(store.getSources)
 
     const query = defineProps({
-        exact: String,
-        musty: String,
-        noty: String
+        q: {
+            type: String,
+            default: ''
+        }
     })
     const filters = ref({
-        language: '',
+        q: query.q,
+        language: 'en',
         searchIn: [] as string[],
         sources: [] as string[],
         domains: [] as string[],
         excludeDomains: [] as string[],
-        from: '',
-        to: '',
+        from: (new Date(new Date().getMonth() - 1)).toString(),
+        to: (new Date()).toString(),
     })
 
-
-    const exact = ref(query.exact || '')
-    const musty = ref(query.musty || '')
-    const noty = ref(query.noty || '')
-
     const submit = () => {
-        
+        if (query.q === '' || query.q.toString().match(/^ *$/) !== null) {
+            return
+        }
+        let temp = filters.value;
+        let params = {
+            q: temp.q,
+            language: temp.language,
+            searchIn: temp.searchIn.length > 0 ? temp.searchIn.join(',') : null,
+            sources: temp.sources.join(','),
+            domains: temp.domains.join(','),
+            excludeDomains: temp.excludeDomains.join(','),
+            from: temp.from,
+            to: temp.to,
+        }
+        console.log(params)
+        router.replace({
+            path: '/search',
+            query: {
+                ...params,
+            }
+        })
     }
 
     watch(filters.value, (val) => {

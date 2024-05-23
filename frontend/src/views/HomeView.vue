@@ -34,8 +34,9 @@
       await axios.get(api, {
           ...config,
           params: {
+            category: 'general',
             country: 'us',
-            pageSize: 5,
+            pageSize: 10,
           }
         })
         .then(res => {
@@ -51,7 +52,7 @@
           params: {
             category: 'general',
             country: 'my',
-            pageSize: 6,
+            pageSize: 15,
           }
         })
         .then(res => {

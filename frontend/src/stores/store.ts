@@ -12,7 +12,7 @@ export const useStore = defineStore('store', {
     return {
       topNews: [] as any[],
       localNews: [] as any[],
-      searchHistory: {} as {number: any},
+      searchHistory: [] as any[],
       
       
       pageSize: 15 as number,
@@ -30,8 +30,20 @@ export const useStore = defineStore('store', {
     },
     setSources(sources: any) {
       this.sources = sources;
-    }
+    },
     // ! Limit history to 3 pages
+    addHistory(query: any, news: any): boolean {
+      let temp = {
+        query: query,
+        news: news,
+      }
+
+      if (this.searchHistory.indexOf(temp) > -1)
+        return false
+      this.searchHistory.push(temp)
+      return true
+      
+    }
   },
   getters: {
     getTopWithImg(): any {
