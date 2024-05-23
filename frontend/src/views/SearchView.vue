@@ -136,6 +136,7 @@
     }
 
     async function searchNews() {
+        return
         if (news.value.length == 0)
             loading.value = true
             await axios.get(api, {
@@ -162,16 +163,16 @@
     }
 
     async function getSources() {
-        loadingSource.value = true
-        await axios.get(api_source, {
-            ...config,
-            })
-            .then(res => {
-                store.setSources(res.data.sources)
-            })
-            .catch(err => {
-                console.log(err.response.data)
-            })
+        // loadingSource.value = true
+        // await axios.get(api_source, {
+        //     ...config,
+        //     })
+        //     .then(res => {
+        //         store.setSources(res.data.sources)
+        //     })
+        //     .catch(err => {
+        //         console.log(err.response.data)
+        //     })
         loadingSource.value = false
 
     }

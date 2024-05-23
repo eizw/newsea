@@ -3,6 +3,9 @@ import '@/assets/tailwind.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
+import VueDatePicker from '@vuepic/vue-datepicker'
+import '@vuepic/vue-datepicker/dist/main.css'
+
 // import 'vuetify/styles'
 // import { createVuetify } from 'vuetify'
 // import * as components from 'vuetify/components'
@@ -18,6 +21,7 @@ const app = createApp(App)
 //     components,
 //     directives,
 // }))
+app.component('VueDatePicker', VueDatePicker)
 app.use(createPinia())
 app.use(router)
 
