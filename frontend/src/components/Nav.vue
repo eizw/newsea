@@ -9,14 +9,11 @@
                         <i class="fas fa-bars"></i>
                     </button>
                 </div>
-
-
-        
                 <div v-bind:class="{'hidden': !showMenu, 'flex': showMenu, }" 
                     class="flex-col lg:flex lg:flex-row items-start mt-auto"
                 >
-                    <ul class="flex flex-col lg:flex-row lg:mt-0 gap-3 lg:gap-12">
-                        <li v-for="x in topics" class="flex-1 nav-item pl-7 lg:px-0">
+                    <ul class="flex flex-col lg:flex-row lg:mt-0 gap-3 lg:gap-8">
+                        <li v-for="x in topics" class="flex-1 nav-item pl-7 md:pl-0">
                             <RouterLink :to="{name: 'home'}" 
                                 class="text-black text-l font-bold main-text-hover"
                             >
@@ -36,7 +33,7 @@
                             v-model="query" 
                             placeholder="Search..."/>
                         <button type="submit">
-                            <i class="fa fa-search text-xl mr-7 pl-3" aria-hidden="true"></i>
+                            <i class="fa fa-search text-xl mr-7 lg:mr-0 pl-3" aria-hidden="true"></i>
                         </button>
                     </div>
                 </form>
