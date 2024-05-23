@@ -9,11 +9,15 @@ const defaultNews = {
 
 export const useStore = defineStore('store', {
   state: () => {
-    return { 
+    return {
       topNews: [] as any[],
       localNews: [] as any[],
       searchHistory: {} as {number: any},
+      
+      
       pageSize: 15 as number,
+
+      sources: [] as any[],
       apiKey: import.meta.env.VITE_NEWSAPI_KEY,
     }
   },
@@ -24,6 +28,9 @@ export const useStore = defineStore('store', {
     setLocal(news: any) {
       this.localNews = news;
     },
+    setSources(sources: any) {
+      this.sources = sources;
+    }
     // ! Limit history to 3 pages
   },
   getters: {
@@ -32,6 +39,9 @@ export const useStore = defineStore('store', {
     },
     getLocalWithImg(): any {
       return this.localNews.filter((news) => news.urlToImage)
+    },
+    getSources(): any {
+      return this.sources
     }
   }
 })

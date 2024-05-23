@@ -24,7 +24,16 @@
         @apply md:w-full lg:c-70 px-12 lg:px-0
     }
 
-    /* .news-card {
-        @apply w-full sm:w-3/6;
-    } */
+    /* Search Filter */
+    .c-filter {
+        @apply flex flex-col gap-3 pl-4;
+    }
+
+    .filter-hover {
+        @apply hover:shadow-md transition ease-in-out delay-75
+    }
+
+    .filter-textfield {
+        @apply block p-1 ps-2 text-sm text-gray-900 border border-gray-300 rounded-s bg-gray-50 focus:ring-blue-500 focus:border-blue-500;
+    }
 }
