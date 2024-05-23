@@ -14,11 +14,9 @@
             <DomainFilter @domains="setDomains"/>
 
             <!-- DATE -->
-            <div class="c-filter">
-                <div class="relative max-w-sm"> 
-                    <input type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
-                </div>
-            </div>
+            <DateFilter @date="setDate"/>
+
+            
         
         </form>
     </div>
@@ -28,10 +26,12 @@
     import { ref, watch } from 'vue';
     import { useStore } from '@/stores/store';
     import "/node_modules/flag-icons/css/flag-icons.min.css";
+
     import LangFilter from '@/components/filters/LangFilter.vue';
     import SearchInFilter from '@/components/filters/SearchInFilter.vue';
     import SourceFilter from '@/components/filters/SourceFilter.vue';
     import DomainFilter from '@/components/filters/DomainFilter.vue';
+    import DateFilter from '@/components/filters/DateFilter.vue';
 
     const store = useStore();
 
@@ -48,6 +48,8 @@
         sources: [] as string[],
         domains: [] as string[],
         excludeDomains: [] as string[],
+        from: '',
+        to: '',
     })
 
 
@@ -58,6 +60,10 @@
     const submit = () => {
 
     }
+
+    watch(filters.value, (val) => {
+        console.log(filters.value)
+    })
 
     const setLang = (val: string) => {
         filters.value.language = val;
@@ -79,7 +85,8 @@
         filters.value.excludeDomains = exc
         filters.value.domains = inc
     }
-    
-
-    
+    const setDate = (val: string[]) => {
+        filters.value.from = val[0]
+        filters.value.to = val[1]
+    }
 </script>
