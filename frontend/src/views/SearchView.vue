@@ -53,7 +53,9 @@
                         <NewsBar :news="{title: i.title, date: new Date(i.publishedAt), urlToImage: i.urlToImage, description: i.description}"/>
                     </li>
                 </ul>
-                <p v-if="loading">Searching...</p>
+                <div class="mt-32 flex align-center justify-center" v-if="loading">
+                    <Loading class="mt-auto" :text="'Loading'"/>
+                </div>
             </div>
         </div>
     </main>
@@ -62,6 +64,7 @@
 <script setup lang="ts">
     import NewsBar from '@/components/NewsBar.vue'
     import SearchFilter from '@/components/SearchFilter.vue';
+    import Loading from '@/components/Loading.vue';
     import { useStore } from '@/stores/store';
     import axios from 'axios';
     import { onMounted, ref, watch } from 'vue';
@@ -72,7 +75,7 @@
     const store = useStore()
 
     // ! STATEs
-    const loading = ref(false)
+    const loading = ref(true)
     const loadingSource = ref(false)
     const showFilter = ref(false)
 
@@ -185,3 +188,4 @@
         })
     }
 </script>
+
