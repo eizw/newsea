@@ -31,9 +31,9 @@ _npm is required to install the application._
    ```sh
    npm install
    ```
-4. Enter your API in a new `.env` file inside the `frontend` folder
+4. Enter your API in a `.env` file inside the `frontend` folder
    ```js
-   const API_KEY = "ENTER YOUR API";
+   VITE_NEWSAPI_KEY="257bd164d4654f448c28749c336ebbe6";
    ```
  ## Usage
 
