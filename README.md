@@ -27,13 +27,17 @@ _npm is required to install the application._
    ```sh
    git clone https://github.com/eizw/newsea.git
    ```
-3. Install NPM packages
+3. Go into the `frontend` directory
+   ```sh
+   cd frontend
+   ```
+4. Install NPM packages
    ```sh
    npm install
    ```
-4. Enter your API in a `.env` file inside the `frontend` folder
+5. Create a a `.env` file inside the `frontend` (current) directory and enter your api key
    ```js
-   VITE_NEWSAPI_KEY="YOUR_API_KEY";
+   echo 'VITE_NEWSAPI_KEY="YOUR_API_KEY"' > .env
    ```
  ## Usage
 
