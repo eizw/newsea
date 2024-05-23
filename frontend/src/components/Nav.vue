@@ -34,7 +34,7 @@
                     <div class="relative flex flex-row ">
                         <input type="search" id="default-search" class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-s bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
                             v-model="query" 
-                            placeholder="Search..." required />
+                            placeholder="Search..."/>
                         <button type="submit">
                             <i class="fa fa-search text-xl mr-7 pl-3" aria-hidden="true"></i>
                         </button>
@@ -67,12 +67,20 @@
 
 
     const submit = () => {
-        router.push({
-            path: '/search',
-            query: {
-                q: query.value
-            }
-        })
+        if (query.value === '' || query.value.match(/^ *$/) !== null) {
+            router.push({
+                path: '/search'
+            })
+        } else {
+            router.push({
+                path: '/search',
+                query: {
+                    q: query.value,
+                    page: 1,
+                }
+            })
+
+        }
     }
 
 

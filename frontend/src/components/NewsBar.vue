@@ -1,12 +1,15 @@
 <template>
-    <div class="flex flex-row my-3 gap-3 h-24">
+    <div class="flex flex-row my-3 gap-3 h-36">
         <RouterLink :to="{name: 'home'}" class="flex flex-1 flex-row gap-3 main-text-hover">
-            <div class="flex-1 flex-col gap-2 py-3">
-                <p class="text-l font-bold line-clamp-2 "
+            <div class="flex-1 flex flex-col gap-2 py-3">
+                <p class="text-l font-bold line-clamp-2"
                     :class="{ 'text-white': isDark }"
                 >{{ news.title }}</p>
-                <p class="text-sm mt-auto"
+                <p class="text-sm flex-1"
                 >{{ news.date.toLocaleDateString() }}
+                </p>
+                <p class="text-sm mb-auto line-clamp-2"
+                >{{  news.description }}
                 </p>
 
             </div>
@@ -29,6 +32,7 @@
                 title: 'No title provided',
                 date: new Date(),
                 urlToImage: null,
+                description: null,
             },
         },
         hasImage: {
