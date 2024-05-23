@@ -67,7 +67,6 @@
         if (query.value === '' || query.value.match(/^ *$/) !== null) {
             router.push({
                 path: '/search',
-                query: {}
             })
         } else {
             router.push({

@@ -75,7 +75,7 @@
     const store = useStore()
 
     // ! STATEs
-    const loading = ref(true)
+    const loading = ref(false)
     const loadingSource = ref(false)
     const showFilter = ref(false)
 
@@ -99,8 +99,9 @@
 
     function getNextUser() {
       window.onscroll = () => {
-        let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
+        let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight > document.documentElement.offsetHeight - 25;
         if (bottomOfWindow) {
+            loading.value = true
             setTimeout(() => {
                 fetchNews(5);
             }, 1000)
@@ -164,7 +165,6 @@
     }
 
     async function fetchNews(pageSize: number) {
-        return
         loading.value = true
         let params = (showFilter) ? filters.value : {q: query.value, date: (new Date()).toString()}
         
