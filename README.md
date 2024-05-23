@@ -1,27 +1,42 @@
-# Newsea
+               
+<br/>
+<div align="center">
 
+<h3 align="center">Newsea</h3>
+<p align="center">
 News website for Artiselite's Technical Challenge (Frontend)
 
-## Project Setup
 
-```sh
-npm install
-```
+  
 
-### Compile and Hot-Reload for Development
 
-```sh
-npm run dev
-```
+</p>
+</div>
 
-### Type-Check, Compile and Minify for Production
+ ### Built With
 
-```sh
-npm run build
-```
+- [Vue](https://vuejs.org)
+- [TailwindCSS](https://tailwindcss.com/)
+- [NewsAPI](https://newsapi.org/)
+ ### Installation
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+_npm is required to install the application._
 
-```sh
-npm run test:unit
-```
+1. Get a free API Key at [https://example.com](https://example.com)
+2. Clone the repo
+   ```sh
+   git clone https://github.com/eizw/newsea.git
+   ```
+3. Install NPM packages
+   ```sh
+   npm install
+   ```
+4. Enter your API in a new `.env` file inside the `frontend` folder
+   ```js
+   const API_KEY = "ENTER YOUR API";
+   ```
+ ## Usage
+
+Homepage: All top-headlines by category
+
+Search page: to browse all types of news with available filters on the `/v2/everything` endpoint
