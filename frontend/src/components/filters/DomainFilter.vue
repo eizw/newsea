@@ -17,25 +17,27 @@
                     <input type="checkbox" id="filter-include"
                     v-model="newDomain.exclude" class="w-4 h-4 filter-hover
                     text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
-                    <label for="filter-include" class="ms-2 text-sm font-medium text-black">exclude</label>
+                    <label for="filter-include" class="ms-2 text-sm font-medium text-black">Exclude</label>
                 </div>
             </form>
             
-            <form class="flex flex-row"
-            v-on:submit.prevent
-            v-for="i in domains.length"
-            key="i"
-            >
-                <input type="search" id="default-search" class="filter-hover filter-textfield"
-                    v-model="domains[i-1].name"
-                    :class="[
-                        domains[i-1].exclude ? 'filter-exclude' : 'filter-include',
-                    ]"
-                    :placeholder="'Domain ' + (i)" required/>
-                <button type="submit" v-on:click="removeDomain(i-1)">
-                    <i class="fa-solid fa-trash text-sm pl-3 text-red-500" aria-hidden="true"></i>
-                </button>
-            </form>
+            <div class="flex flex-wrap gap-3">
+                <form class="flex flex-row"
+                v-on:submit.prevent
+                v-for="i in domains.length"
+                key="i"
+                >
+                    <p type="search" id="default-search" class="filter-extra"
+                        :class="[
+                            domains[i-1].exclude ? 'filter-exclude' : 'filter-include',
+                        ]"
+                        >{{ domains[i-1].name }}</p>
+                    <button type="submit" v-on:click="removeDomain(i-1)">
+                        <i class="fa-solid fa-xmark text-base pl-1 text-red-500" aria-hidden="true"></i>
+                    </button>
+                </form>
+
+            </div>
         </div>
     </div>
 </template>

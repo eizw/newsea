@@ -16,9 +16,13 @@
             <!-- DATE -->
             <DateFilter @date="setDate"/>
 
-            
-        
+            <!-- SORT -->
+            <SortFilter @sort=""/>
         </form>
+
+        <div class="flex">
+            
+        </div>
     </div>
 </template>
 
@@ -32,6 +36,7 @@
     import SourceFilter from '@/components/filters/SourceFilter.vue';
     import DomainFilter from '@/components/filters/DomainFilter.vue';
     import DateFilter from '@/components/filters/DateFilter.vue';
+    import SortFilter from '@/components/filters/SortFilter.vue';
 
     const store = useStore();
 
@@ -58,7 +63,7 @@
     const noty = ref(query.noty || '')
 
     const submit = () => {
-
+        
     }
 
     watch(filters.value, (val) => {

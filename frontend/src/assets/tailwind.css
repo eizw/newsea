@@ -34,7 +34,7 @@
     }
 
     .filter-textfield {
-        @apply block p-1 ps-2 text-sm text-gray-900 border border-gray-300 rounded-md bg-gray-50 focus:ring-blue-500 focus:border-blue-500;
+        @apply p-1 ps-2 text-sm text-gray-900 border border-gray-300 rounded-md bg-white focus:ring-blue-500 focus:border-blue-500;
     }
 
     .filter-add-btn {
@@ -46,5 +46,9 @@
     }
     .filter-exclude {
         @apply bg-red-300 border-red-700
+    }
+
+    .filter-extra {
+        @apply inline-block px-2 py-1 rounded-full border text-xs lg:text-sm
     }
 }

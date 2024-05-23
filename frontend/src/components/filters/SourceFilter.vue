@@ -28,11 +28,11 @@
                 v-for="i in sources.length"
                 key="i"
                 >
-                    <p class="filter-hover filter-textfield">
+                    <p class="filter-extra">
                         {{  sources[i-1].name }}
                     </p>
                     <button type="submit" v-on:click="removeSource(i-1)">
-                        <i class="fa-solid fa-trash text-sm pl-3 text-red-500" aria-hidden="true"></i>
+                        <i class="fa-solid fa-xmark text-base pl-1 text-red-500" aria-hidden="true"></i>
                     </button>
                 </form>
             </div>

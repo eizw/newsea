@@ -23,9 +23,6 @@
       'Content-type': 'application/x-www-form-urlencoded',
     },
   }
-  const params = {
-    pageSize: 15,
-  }
 
   
   const loaded = ref(false)
@@ -38,7 +35,7 @@
           ...config,
           params: {
             country: 'us',
-            ...params
+            pageSize: 5,
           }
         })
         .then(res => {
@@ -54,7 +51,7 @@
           params: {
             category: 'general',
             country: 'my',
-            ...params,
+            pageSize: 6,
           }
         })
         .then(res => {
