@@ -48,11 +48,7 @@
     const domains = ref([] as any[])
 
     watch(domains.value, (val) => {
-        let temp = [] as string[]
-        domains.value.map((domain: any) => {
-            temp.push(domain.name)
-        })
-        emit('domains', temp)
+        emit('domains', val)
     })
 
     // DOMAINS = name

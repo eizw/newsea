@@ -68,8 +68,16 @@
     const setSources = (val: string[]) => {
         filters.value.sources = val;
     }
-    const setDomains = (val: string[]) => {
-        filters.value.domains = val;
+    const setDomains = (val: any[]) => {
+        let exc: string[] = [], inc: string[] = []
+        val.map((domain) => {
+            if (domain.exclude)
+                exc.push(domain.name)
+            else
+                inc.push(domain.name)
+        })
+        filters.value.excludeDomains = exc
+        filters.value.domains = inc
     }
     
 
