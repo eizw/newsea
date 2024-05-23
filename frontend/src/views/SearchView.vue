@@ -48,12 +48,12 @@
             
             
             <div class="py-3">
-                <p v-if="loading">Searching...</p>
                 <ul class="list-none" v-if="news">
                     <li class="border-b-2" v-for="i in news">
                         <NewsBar :news="{title: i.title, date: new Date(i.publishedAt), urlToImage: i.urlToImage, description: i.description}"/>
                     </li>
                 </ul>
+                <p v-if="loading">Searching...</p>
             </div>
         </div>
     </main>
@@ -81,13 +81,10 @@
     const filters = ref({
         ...route.query
     })
+    const page = ref(0)
 
     const news = ref([] as any)
     const totalResults = ref(0)
-
-
-
-
     const api: string = 'https://newsapi.org/v2/everything/'
     const api_source: string = 'https://newsapi.org/v2/top-headlines/sources/'
     const config = {
@@ -96,15 +93,21 @@
         'Content-type': 'application/x-www-form-urlencoded',
         },
     }
-    const params = {
-        pageSize: store.pageSize,
+
+    function getNextUser() {
+      window.onscroll = () => {
+        let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
+        if (bottomOfWindow) {
+            setTimeout(() => {
+                fetchNews(5);
+            }, 1000)
+        }
+      }
     }
 
     onMounted(() => {
         getSources();
-        if (route.query.q != null)
-            searchNews();
-        console.log('dd')
+        getNextUser();
     })
 
     watch(() => route.query, (newQuery, oldQuery) => {
@@ -117,7 +120,7 @@
             searchNews()
 
         }
-    })
+    }, {immediate: true})
 
     const submit = () => {
         if (query.value === '' || query.value.toString().match(/^ *$/) !== null) {
@@ -133,27 +136,9 @@
     }
 
     async function searchNews() {
-        return
         if (news.value.length == 0) {
-            loading.value = true
-            let params = (showFilter) ? filters.value : {q: query.value}
-            await axios.get(api, {
-                ...config,
-                params: {
-                    ...params,
-                },
-            })
-            .then(res => {
-                totalResults.value = res.data.totalResults
-                news.value = res.data.articles
-                loading.value = false
-            })
-            .catch(err => {
-                console.log(err.response.data)
-            })
-
+            fetchNews(10)
         }
-        loading.value = false
     }
 
     const toggleFilter = () => {
@@ -173,5 +158,30 @@
         //     })
         loadingSource.value = false
 
+    }
+
+    async function fetchNews(pageSize: number) {
+        return
+        loading.value = true
+        let params = (showFilter) ? filters.value : {q: query.value, date: (new Date()).toString()}
+        
+        await axios.get(api, {
+            ...config,
+            params: {
+                ...params,
+                pageSize: pageSize,
+                page: (pageSize < 10) ? 3 + page.value++ : 1
+            },
+        })
+        .then(res => {
+            totalResults.value = res.data.totalResults
+            news.value.push(...res.data.articles)
+            news.value.splice(news.value.length+pageSize)
+            console.log(news.value)
+            loading.value = false
+        })
+        .catch(err => {
+            console.log(err.response.data)
+        })
     }
 </script>
