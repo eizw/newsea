@@ -33,7 +33,7 @@ _npm is required to install the application._
    ```
 4. Enter your API in a `.env` file inside the `frontend` folder
    ```js
-   VITE_NEWSAPI_KEY="257bd164d4654f448c28749c336ebbe6";
+   VITE_NEWSAPI_KEY="YOUR_API_KEY";
    ```
  ## Usage
 
