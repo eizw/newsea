@@ -1,6 +1,6 @@
 <template>
     <div class="flex border-2 py-4 px-2 rounded-lg border-slate-300 shadow-md">
-        <form class="flex-1 flex-col flex gap-4 md:flex-row divide-x-2" v-on:submit.prevent="submit">
+        <form class="flex-1 flex-col flex gap-4 md:flex-row md:flex-wrap divide-x-2" v-on:submit.prevent="submit">
             <!-- LANGUAGE -->
             <div class="c-filter">
                 <p class="text-l">Language:</p>
@@ -37,42 +37,13 @@
                 </div>
             </div>
 
-            
             <!-- SOURCES -->
-            <!-- <div class="c-filter">
-                <p class="text-l">Allowed sources:</p>
-                <div class="flex flex-col gap-2">
-                    <form class="flex flex-row"
-                    v-on:submit.prevent="addSource">
-                        <input type="search" id="default-search" class="filter-hover filter-textfield"
-                            v-model="newSource" 
-                            placeholder="Add source..."/>
-                        <button type="submit">
-                            <i class="fa fa-search text-sm pl-3 text-newsea-primary" aria-hidden="true"></i>
-                        </button>
-                    </form>
-                    
-                    <form class="flex flex-row"
-                    v-on:submit.prevent
-                    v-for="i in filters.sources.length"
-                    key="i"
-                    >
-                        <input type="search" id="default-search" class="filter-hover filter-textfield"
-                            v-model="filters.sources[i-1]"
-                            :placeholder="'Source ' + (i)"/>
-                        <button type="submit" v-on:click="removeSource(i-1)">
-                            <i class="fa-solid fa-trash text-sm pl-3 text-red-500" aria-hidden="true"></i>
-                        </button>
-                    </form>
-                </div>
-                
-            </div> -->
             <div class="c-filter">
                 <p class="text-l">Sources:</p>
                 <div class="flex flex-col gap-3">
                     <form class="flex flex-row gap-2"
                     v-on:submit.prevent="addSource">
-                        <select class="filter-hover text-sm border-2 rounded-full py-1 ps-2 border-slate-300"
+                        <select class="filter-hover text-sm border-2 rounded-full py-1 ps-2 pe-2 border-slate-300"
                         v-model="newSource"
                         >
                             <option v-bind:value="{id: '', name: 'ANY'}">Pick a source</option>
@@ -85,17 +56,18 @@
                                 </div>
                             </option>
                         </select>
-                        <button type="submit" class="flex-1 rounded-full border-2 filter-hover">
-                            <i class="flex-1 fa-solid fa-plus text-sm px-2 text-newsea-primary" aria-hidden="true"></i>
+                        <button type="submit" class="filter-add-btn filter-hover">
+                            <i class="fa-solid fa-plus text-sm  text-newsea-primary" aria-hidden="true"></i>
                         </button>
                     </form>
 
                     <form class="flex flex-row"
                     v-on:submit.prevent
-                    v-for="i in filters.sources"
+                    v-for="i in filters.sources.length"
+                    key="i"
                     >
                         <p class="filter-hover filter-textfield">
-                            {{  i.name }}
+                            {{  filters.sources[i-1].name }}
                         </p>
                         <button type="submit" v-on:click="removeSource(i-1)" 
                         >
@@ -103,6 +75,49 @@
                         </button>
                     </form>
                 </div>
+            </div>
+
+            
+            <!-- DOMAINS -->
+            <div class="c-filter">
+                <p class="text-l">Domains:</p>
+                <div class="flex flex-col gap-2">
+                    <form class="flex flex-col gap-2"
+                    v-on:submit.prevent="addDomain">
+                        <div class="flex flex-row gap-2">
+                            <input type="search" id="default-search" class="filter-hover filter-textfield"
+                                v-model="newDomain.name" 
+                                placeholder="Add Domain..."/>
+                            <button type="submit" class="filter-add-btn filter-hover">
+                                <i class="fa-solid fa-plus text-sm px-2 text-newsea-primary" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="flex flex-1 items-center">
+                            <input type="checkbox" id="filter-include"
+                            v-model="newDomain.exclude" class="w-4 h-4 filter-hover
+                            text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                            <label for="filter-include" class="ms-2 text-sm font-medium text-black">exclude</label>
+                        </div>
+                    </form>
+                    
+                    <form class="flex flex-row"
+                    v-on:submit.prevent
+                    v-for="i in filters.domains.length"
+                    key="i"
+                    >
+                        <input type="search" id="default-search" class="filter-hover filter-textfield"
+                            v-model="filters.domains[i-1].name"
+                            :class="[
+                                filters.domains[i-1].exclude ? 'filter-exclude' : 'filter-include',
+                            ]"
+                            :placeholder="'Domain ' + (i)" required/>
+                        <button type="submit" v-on:click="removeDomain(i-1)">
+                            <i class="fa-solid fa-trash text-sm pl-3 text-red-500" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                </div>
+                
             </div>
         </form>
     </div>
@@ -132,7 +147,7 @@
         },
         searchin: [] as string[],
         sources: [] as any[],
-        domains: [] as string[],
+        domains: [] as any[],
         excludeDomains: [] as string[],
 
 
@@ -159,6 +174,7 @@
 
     }
 
+    // SOURCES = id
     const newSource = ref({
         id: '',
         name: 'ANY'
@@ -175,5 +191,29 @@
     }
     const removeSource = (i: number) => {
         filters.value.sources.splice(i, 1)
+    }
+
+    // DOMAINS = name
+    const newDomain = ref({
+        exclude: false,
+        name: ''
+    })
+    const addDomain = () => {
+        if (newDomain.value.name == '') {
+            return
+        }
+        if (filters.value.domains.indexOf(newDomain.value) > -1) {
+            return
+        }
+        console.log(newDomain.value)
+        filters.value.domains.push(newDomain.value)
+        filters.value.domains.splice(filters.value.domains.length+1)
+        newDomain.value = {
+            exclude: false,
+            name: ''
+        }
+    }
+    const removeDomain = (i: number) => {
+        filters.value.domains.splice(i, 1)
     }
 </script>
