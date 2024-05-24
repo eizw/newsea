@@ -11,7 +11,7 @@
   import HomeLocal from '@/components/HomeLocal.vue';
   import HomeSearch from '@/components/HomeSearch.vue';
   import { useStore } from '@/stores/store';
-  import { ref, watch } from 'vue';
+  import { ref, watch, onMounted } from 'vue';
   import axios from 'axios'
 
 
@@ -27,7 +27,10 @@
   
   const loaded = ref(false)
 
-  initFetch();
+  onMounted(() => {
+    initFetch();
+
+  })
 
   async function initFetch() {
     if (store.topNews.length == 0)

@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="flex-1" v-if="showFilter && !loadingSource">
-                    <SearchFilter :q="query"/>
+                    <SearchFilter @params="setParams"/>
                 </div>
             </div>
 
@@ -83,9 +83,7 @@
 
     // ! FILTERS
     const query = ref(route.query.q as string || '')
-    const filters = ref({
-        ...route.query
-    })
+    const filters = ref({} as any)
     const page = ref(0)
 
     const news = ref([] as any)
@@ -101,7 +99,7 @@
 
     function getNextUser() {
       window.onscroll = () => {
-        let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight > document.documentElement.offsetHeight - 25;
+        let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
         if (bottomOfWindow) {
             loading.value = true
             setTimeout(() => {
@@ -117,16 +115,18 @@
     })
 
     watch(() => route.query, (newQuery, oldQuery) => {
-        searchStore.addHistory(oldQuery, news)
+        // searchStore.addHistory(oldQuery, news)
         console.log(newQuery)
         if (newQuery != oldQuery && newQuery != null) {
-            filters.value = newQuery;
-            news.value = [];
-            totalResults.value = 0;
-            searchNews()
-
+            newSearch()
         }
     }, {immediate: true})
+
+    function newSearch() {
+        news.value = [];
+        totalResults.value = 0;
+        fetchNews(10)
+    }
 
     const submit = () => {
         if (query.value === '' || query.value.toString().match(/^ *$/) !== null) {
@@ -141,34 +141,32 @@
         })
     }
 
-    async function searchNews() {
-        if (news.value.length == 0) {
-            fetchNews(10)
-        }
-    }
-
     const toggleFilter = () => {
         showFilter.value = !showFilter.value
     }
 
     async function getSources() {
-        // loadingSource.value = true
-        // await axios.get(api_source, {
-        //     ...config,
-        //     })
-        //     .then(res => {
-        //         searchStore.setSources(res.data.sources)
-        //     })
-        //     .catch(err => {
-        //         console.log(err.response.data)
-        //     })
+        loadingSource.value = true
+        await axios.get(api_source, {
+            ...config,
+            })
+            .then(res => {
+                searchStore.setSources(res.data.sources)
+            })
+            .catch(err => {
+                console.log(err.response.data)
+            })
         loadingSource.value = false
 
     }
 
     async function fetchNews(pageSize: number) {
         loading.value = true
-        let params = (showFilter) ? filters.value : {q: query.value, date: (new Date()).toString()}
+        let params = {
+            q: query.value,
+            ...filters.value
+        }
+        console.log(params)
         
         await axios.get(api, {
             ...config,
@@ -189,5 +187,24 @@
             console.log(err.response.data)
         })
     }
+
+    const setParams = (val: any) => {
+        let params = new URLSearchParams(val);
+        let keysForDel: any[] = [];
+        params.forEach((value, key) => {
+        if (value == '' || value.length == 0) {
+            keysForDel.push(key);
+        }
+        });
+
+        keysForDel.forEach(key => {
+            params.delete(key);
+        });
+
+        filters.value = params;
+        newSearch();
+    }
+
+
 </script>
 

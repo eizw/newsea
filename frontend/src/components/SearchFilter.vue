@@ -33,7 +33,7 @@
 
 <script setup lang="ts">
     import { ref, watch } from 'vue';
-    import { useStore } from '@/stores/store';
+    import { useSearchStore } from '@/stores/search';
     import { useRouter } from 'vue-router';
     import "/node_modules/flag-icons/css/flag-icons.min.css";
 
@@ -44,19 +44,12 @@
     import DateFilter from '@/components/filters/DateFilter.vue';
     import SortFilter from '@/components/filters/SortFilter.vue';
 
-    const store = useStore();
+    const searchStore = useSearchStore();
     const router = useRouter();
+    const emit = defineEmits(['params'])
 
-    const sources = ref(store.getSources)
-
-    const query = defineProps({
-        q: {
-            type: String,
-            default: ''
-        }
-    })
+    const sources = ref(searchStore.getSources)
     const filters = ref({
-        q: query.q,
         language: 'en',
         searchIn: [] as string[],
         sources: [] as string[],
@@ -67,12 +60,8 @@
     })
 
     const submit = () => {
-        if (query.q === '' || query.q.toString().match(/^ *$/) !== null) {
-            return
-        }
         let temp = filters.value;
         let params = {
-            q: temp.q,
             language: temp.language,
             searchIn: temp.searchIn.length > 0 ? temp.searchIn.join(',') : null,
             sources: temp.sources.join(','),
@@ -81,13 +70,8 @@
             from: temp.from,
             to: temp.to,
         }
+        emit('params', params)
         console.log(params)
-        router.replace({
-            path: '/search',
-            query: {
-                ...params,
-            }
-        })
     }
 
     watch(filters.value, (val) => {
