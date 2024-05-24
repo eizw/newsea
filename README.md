@@ -36,8 +36,17 @@ _npm is required to install the application._
    npm install
    ```
 5. Create a a `.env` file inside the `frontend` (current) directory and enter your api key
-   ```js
+   ```sh
    echo 'VITE_NEWSAPI_KEY="YOUR_API_KEY"' > .env
+   ```
+6. Run the development server
+   ```sh
+   npm run dev
+   ```
+7. To build, use the package build command and serve on a `localhost`
+   ```sh
+   npm run build
+   serve
    ```
  ## Usage
 
