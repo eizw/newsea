@@ -7,10 +7,10 @@
                     v-if="news.length > 0"
                     >
                         <p class="flex-1 text-3xl font-bold h-full ">
-                            {{ route.query.q }}
+                            {{ resquery }}
                         </p>
                         <p class="flex-1 text-l" >
-                            Showing {{ totalResults }} results for '<span class="font-bold">{{ query }}</span>'
+                            Showing {{ totalResults }} results for '<span class="font-bold">{{ resquery }}</span>'
                         </p>
                     </div>
 
@@ -40,9 +40,12 @@
 
                 </div>
 
-                <div class="flex-1" v-if="showFilter && !loadingSource">
-                    <SearchFilter @params="setParams"/>
-                </div>
+                    <div class="flex-1" v-if="showFilter && !loadingSource">
+                <KeepAlive>
+                        <SearchFilter @params="setParams"/>
+                </KeepAlive>
+                    </div>
+
             </div>
 
             
@@ -56,8 +59,19 @@
                     </ul>
 
                 </KeepAlive>
+
                 <div class="mt-32 flex align-center justify-center" v-if="loading">
                     <Loading class="mt-auto" :text="'Loading'"/>
+                </div>
+                <div class="c-search flex flex-col gap-5" v-if="nores">
+                    <div class="flex flex-row">
+                        <i class="fa-solid fa-ship text-7xl text-newsea-primary"></i>
+                        <i class="fa-solid fa-question text-5xl text-newsea-primary"></i><br />
+
+                    </div>
+                    <p class="text-center text-xl">
+                        Looks like there're no more results!
+                    </p>
                 </div>
             </div>
         </div>
@@ -83,8 +97,10 @@
     const loading = ref(false)
     const loadingSource = ref(false)
     const showFilter = ref(false)
+    const nores = ref(false)
 
     // ! FILTERS
+    const resquery = ref('')
     const query = ref(route.query.q as string || '')
     const filters = ref({} as any)
     const page = ref(0)
@@ -100,7 +116,7 @@
         },
     }
 
-    function getNextUser() {
+    function getNextNews() {
       window.onscroll = () => {
         let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
         if (bottomOfWindow) {
@@ -112,9 +128,15 @@
       }
     }
 
+    function disableScroll() {
+        window.onscroll = () => {
+            return
+        }
+    }
+
     onMounted(() => {
         getSources();
-        getNextUser();
+        getNextNews();
     })
 
     watch(() => route.query, (newQuery, oldQuery) => {
@@ -164,10 +186,13 @@
 
     async function fetchNews(pageSize: number) {
         loading.value = true
+        
+        let {exclude, ...temp} = filters.value
         let params = {
-            q: query.value,
-            ...filters.value
+            q: (exclude) ? query.value + ('-'+exclude) : query.value,
+            ...temp
         }
+        console.log(temp)
         
         await axios.get(api, {
             ...config,
@@ -178,10 +203,20 @@
             },
         })
         .then(res => {
-            totalResults.value = res.data.totalResults
-            news.value.push(...res.data.articles)
-            news.value.splice(news.value.length+pageSize)
-            loading.value = false
+            if (Object.keys(res.data.articles).length > 0) {
+                resquery.value = query.value;
+                totalResults.value = res.data.totalResults
+                news.value.push(...res.data.articles)
+                news.value.splice(news.value.length+pageSize)
+                loading.value = false
+                console.log(res.data)
+                getNextNews()
+            } else {
+                console.log('bruh')
+                disableScroll()
+                loading.value = false
+                nores.value = true
+            }
         })
         .catch(err => {
             console.log(err.response.data)
@@ -189,19 +224,24 @@
     }
 
     const setParams = (val: any) => {
-        let params = new URLSearchParams(val);
-        let keysForDel: any[] = [];
-        params.forEach((value, key) => {
-        if (value == '' || value.length == 0) {
-            keysForDel.push(key);
+        // let params = new URLSearchParams(val);
+        // let keysForDel: any[] = [];
+        // params.forEach((value, key) => {
+        //     if (value == '' || value.length == 0 || value==null) {
+        //         keysForDel.push(key);
+        //     }
+        // });
+
+        // keysForDel.forEach(key => {
+        //     params.delete(key);
+        // });
+        for (let param in val) {
+            if (val[param] == null || val[param] == '') {
+                delete val[param]
+            }
         }
-        });
 
-        keysForDel.forEach(key => {
-            params.delete(key);
-        });
-
-        filters.value = params;
+        filters.value = val;
         newSearch();
     }
 

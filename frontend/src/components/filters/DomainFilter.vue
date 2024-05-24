@@ -31,10 +31,11 @@
                         :class="[
                             domains[i-1].exclude ? 'filter-exclude' : 'filter-include',
                         ]"
-                        >{{ domains[i-1].name }}</p>
-                    <button type="submit" v-on:click="removeDomain(i-1)">
-                        <i class="fa-solid fa-xmark text-base pl-1 text-red-500" aria-hidden="true"></i>
-                    </button>
+                        >{{ domains[i-1].name }}
+                        <button type="submit" v-on:click="removeDomain(i-1)">
+                            <i class="fa-solid fa-xmark text-base pl-1 text-red-500" aria-hidden="true"></i>
+                        </button>
+                    </p>
                 </form>
 
             </div>

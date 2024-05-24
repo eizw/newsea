@@ -76,8 +76,8 @@
             from: temp.from,
             to: temp.to,
         }
-        emit('params', params)
         console.log(params)
+        emit('params', params)
     }
 
     watch(filters.value, (val) => {

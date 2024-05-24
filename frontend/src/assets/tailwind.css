@@ -55,4 +55,8 @@
     .filter-extra {
         @apply inline-block px-2 py-1 rounded-full border text-xs lg:text-sm
     }
+
+    .c-search {
+        @apply mt-32 flex items-center justify-center;
+    }
 }
