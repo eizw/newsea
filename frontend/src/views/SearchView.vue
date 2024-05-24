@@ -66,6 +66,7 @@
     import SearchFilter from '@/components/SearchFilter.vue';
     import Loading from '@/components/Loading.vue';
     import { useStore } from '@/stores/store';
+    import { useSearchStore } from '@/stores/search';
     import axios from 'axios';
     import { onMounted, ref, watch } from 'vue';
     import { useRoute, useRouter } from 'vue-router';
@@ -73,6 +74,7 @@
     const route = useRoute()
     const router = useRouter()
     const store = useStore()
+    const searchStore = useSearchStore()
 
     // ! STATEs
     const loading = ref(false)
@@ -115,7 +117,7 @@
     })
 
     watch(() => route.query, (newQuery, oldQuery) => {
-        store.addHistory(oldQuery, news)
+        searchStore.addHistory(oldQuery, news)
         console.log(newQuery)
         if (newQuery != oldQuery && newQuery != null) {
             filters.value = newQuery;
@@ -155,7 +157,7 @@
         //     ...config,
         //     })
         //     .then(res => {
-        //         store.setSources(res.data.sources)
+        //         searchStore.setSources(res.data.sources)
         //     })
         //     .catch(err => {
         //         console.log(err.response.data)

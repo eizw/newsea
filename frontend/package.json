@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@tailwindcss/line-clamp": "^0.4.4",
+    "@vue/cli": "^5.0.8",
     "@vuepic/vue-datepicker": "^8.6.0",
     "axios": "^1.7.1",
     "flag-icons": "^7.2.2",
