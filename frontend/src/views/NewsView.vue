@@ -40,9 +40,8 @@
     const loading = ref(false)
 
     // API
-    const proxyUrl = "https://cors-anywhere.herokuapp.com/"
-    const api: string = `${proxyUrl}https://newsapi.org/v2/everything/`
-    const api2: string = `${proxyUrl}https://newsapi.org/v2/top-headlines/`
+    const api: string = `https://newsapi.org/v2/everything/`
+    const api2: string = `https://newsapi.org/v2/top-headlines/`
     const config = {
         headers: {
         'Authorization': store.apiKey,
@@ -53,7 +52,6 @@
     // VAR
     const article = ref({} as any)
     const foryou = ref([] as any[])
-    const content = ref('')
 
     watch(route, (val) => {
         loading.value = true

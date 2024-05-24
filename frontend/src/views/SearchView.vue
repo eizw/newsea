@@ -88,9 +88,8 @@
 
     const news = ref([] as any)
     const totalResults = ref(0)
-    const proxyUrl = "https://cors-anywhere.herokuapp.com/"
-    const api: string = `${proxyUrl}https://newsapi.org/v2/everything/`
-    const api_source: string = `${proxyUrl}https://newsapi.org/v2/top-headlines/sources`
+    const api: string = `https://newsapi.org/v2/everything/`
+    const api_source: string = 'https://newsapi.org/v2/top-headlines/sources/'
     const config = {
         headers: {
         'Authorization': store.apiKey,
