@@ -9,10 +9,11 @@
                         <i class="fas fa-bars"></i>
                     </button>
                 </div>
-                <div v-bind:class="{'hidden': !showMenu, 'flex': showMenu, }" 
-                    class="flex-col lg:flex lg:flex-row items-start mt-auto"
+                <div v-bind:class="{'hidden': !showMenu, 'flex': showMenu, 'dropdown': showMenu}" 
+                    class="flex-col lg:flex lg:flex-row items-start mt-auto overflow-hidden"
                 >
-                    <ul class="flex flex-col lg:flex-row lg:mt-0 gap-3 lg:gap-8">
+                    <ul class="flex flex-col lg:flex-row lg:mt-0 gap-3 lg:gap-8"
+                    >
                         <li v-for="x in topics" class="flex-1 nav-item pl-7 md:pl-0 md:pr-4">
                             <RouterLink :to="{name: 'home'}" 
                                 class="text-black text-l font-bold main-text-hover"
@@ -86,3 +87,24 @@
     
     
 </script>
+
+
+<style>
+.dropdown {
+  animation: dropdown 0.82s linear both;
+}
+
+@keyframes dropdown {
+  0% {
+    height: 0rem;
+  }
+
+  50% {
+    height: 9rem;
+  }
+
+  90% {
+    height: 15rem;
+  }
+}
+</style>
