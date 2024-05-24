@@ -50,7 +50,7 @@
             <div class="py-3">
                 <ul class="list-none" v-if="news">
                     <li class="border-b-2" v-for="i in news">
-                        <NewsBar :news="{title: i.title, date: new Date(i.publishedAt), urlToImage: i.urlToImage, description: i.description}"/>
+                        <NewsBar :news="news"/>
                     </li>
                 </ul>
                 <div class="mt-32 flex align-center justify-center" v-if="loading">

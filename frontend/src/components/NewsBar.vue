@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-row my-3 gap-3 h-36">
-        <RouterLink :to="{name: 'home'}" class="flex flex-1 flex-row gap-3 main-text-hover">
+        <RouterLink :to="{name: 'news', params: {title: news.title}}" class="flex flex-1 flex-row gap-3 main-text-hover">
             <div class="flex-1 flex flex-col gap-2 py-3">
                 <p class="text-l font-bold line-clamp-2"
                     :class="{ 'text-white': isDark }"
@@ -34,14 +34,6 @@
                 urlToImage: null,
                 description: null,
             },
-        },
-        hasImage: {
-            type: Boolean,
-            default: true,
-        },
-        isHead: {
-            type: Boolean,
-            default: true,
         },
         isDark: {
             type: Boolean,

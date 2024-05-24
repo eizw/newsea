@@ -13,7 +13,7 @@
                     class="flex-col lg:flex lg:flex-row items-start mt-auto"
                 >
                     <ul class="flex flex-col lg:flex-row lg:mt-0 gap-3 lg:gap-8">
-                        <li v-for="x in topics" class="flex-1 nav-item pl-7 md:pl-0">
+                        <li v-for="x in topics" class="flex-1 nav-item pl-7 md:pl-0 md:pr-4">
                             <RouterLink :to="{name: 'home'}" 
                                 class="text-black text-l font-bold main-text-hover"
                             >

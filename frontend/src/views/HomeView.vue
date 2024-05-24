@@ -11,7 +11,7 @@
   import HomeLocal from '@/components/HomeLocal.vue';
   import HomeSearch from '@/components/HomeSearch.vue';
   import { useStore } from '@/stores/store';
-  import { ref, watch, onMounted } from 'vue';
+  import { ref, onMounted } from 'vue';
   import axios from 'axios'
 
 
@@ -28,16 +28,15 @@
   const loaded = ref(false)
 
   onMounted(() => {
+    loaded.value = false;
     initFetch();
-
   })
 
   async function initFetch() {
-    if (store.topNews.length == 0)
+    if (store.topNews.length == 0) {
       await axios.get(api, {
           ...config,
           params: {
-            category: 'general',
             country: 'us',
             pageSize: 10,
           }
@@ -48,14 +47,15 @@
         .catch(err => {
           console.log(err.response.data)
         })
+
+    }
     
-    if (store.localNews.length == 0)
+    if (store.localNews.length == 0) {
       await axios.get(api, {
           ...config,
           params: {
-            category: 'general',
             country: 'my',
-            pageSize: 15,
+            pageSize: 10,
           }
         })
         .then(res => {
@@ -64,7 +64,8 @@
         .catch(err => {
           console.log(err.response.data)
         })
-    console.log('eftched')
+
+    }
     loaded.value = true;
   }
 

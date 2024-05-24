@@ -1,11 +1,11 @@
 <template>
     <div class="flex flex-col mt-5 mb-5 gap-3 main-text-hover">
-        <RouterLink :to="{name: 'home'}" class="flex-1" v-if="hasImage">
+        <RouterLink :to="{name: 'topnews', params: {'country': (isDark) ? 'my' : 'us', 'title': news.title}}" class="flex-1" v-if="hasImg">
             <img class="w-full object-cover max-h-none"
                 :src="news.urlToImage" alt="img"
             >
         </RouterLink>
-        <RouterLink :to="{name: 'home'}" class="mt-auto flex-1 flex">
+        <RouterLink :to="{name: 'topnews', params: {'country': (isDark) ? 'my' : 'us', 'title': news.title}}" class="mt-auto flex-1 flex">
             <p class="text-l font-bold mb-auto line-clamp-2"
                 :class="{ 'text-white': isDark }"
             >{{ news.title }}</p>
@@ -24,7 +24,7 @@
                 urlToImage: '@/assets/newsea.svg'
             },
         },
-        hasImage: {
+        hasImg: {
             type: Boolean,
             default: true,
         },

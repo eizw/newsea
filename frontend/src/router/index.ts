@@ -16,8 +16,14 @@ const router = createRouter({
       component: SearchView,
     },
     {
-      path:'/news/:id',
-      component: NewsView
+      path:'/news/:title',
+      name: 'news',
+      component: NewsView,
+    },
+    {
+      path:'/news/:country/:title',
+      name: 'topnews',
+      component: NewsView,
     }
   ]
 })

@@ -1,13 +1,13 @@
 <template>
-    <div class="w-full py-14 mt-9 bg-newsea-secondary">
+    <div class="w-full py-14 mt-9 bg-newsea-secondary" v-if="news">
         <div class="flex gap-6 flex-col c-home">
             <p class="text-white text-4xl font-bold">Happening in Malaysia</p>
             <div class="flex flex-col gap-4 md:flex-row md:border-b">
                 <NewsCard 
                     class="flex-1"
                     v-for="i in 3" :key="i" 
-                    :hasImage="false" :isDark="true" 
-                    :news="{title: news[i-1].title, hasImg: false}"
+                    :isDark="true" 
+                    :news="news[i]" :hasImg="false"
                 />
 
             </div>
@@ -15,8 +15,8 @@
                 <NewsCard 
                     class="flex-1"
                     v-for="i in 3" :key="i" 
-                    :hasImage="false" :isDark="true" 
-                    :news="{title: news[i+2].title, hasImg: false}"
+                    :isDark="true" 
+                    :news="news[i+2]" :hasImg="false"
                 />
 
             </div>
@@ -33,6 +33,6 @@
 
     const store = useStore();
 
-    const news = [...store.localNews].slice(5);
-    console.log('local', news)
+    const news = ref(store.localNews);
+    console.log('local', news.value)
 </script>

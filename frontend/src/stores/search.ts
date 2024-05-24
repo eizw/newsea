@@ -16,10 +16,11 @@ export const useSearchStore = defineStore('search', {
         
       if (query in this.searchHistory) {
         this.searchHistory[query].push(...news);
-        return false
+      } else {
+
+        this.searchHistory[query] = news;
       }
 
-      this.searchHistory[query] = news;
       return true
       
     }
