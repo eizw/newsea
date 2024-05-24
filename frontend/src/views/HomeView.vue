@@ -26,13 +26,18 @@
 
   
   const loaded = ref(false)
+  const category = ref('')
 
   onMounted(() => {
     loaded.value = false;
-    initFetch();
+    fetchNews();
   })
 
-  async function initFetch() {
+  watch(category.value, (val) => {
+    fetchNews();
+  })
+
+  async function fetchNews() {
     if (store.topNews.length == 0) {
       await axios.get(api, {
           ...config,
