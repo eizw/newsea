@@ -3,14 +3,21 @@
         <div class="mt-32 flex align-center justify-center" v-if="loading">
             <Loading class="mt-auto" :text="'Loading'"/>
         </div>
-        <div class="flex flex-col lg:flex-row lg:c-70 gap-4" v-if="article && foryou">
+        <div class="flex flex-col lg:flex-row w-full lg:c-70 gap-4" v-if="article && foryou">
             <div class="flex flex-col gap-6 px-3 py-5">
-                <p class="text-3xl font-bold pb-7 border-b-2">{{ article.title }}</p>
+                <p class="text-3xl font-bold ">{{ article.title }}</p>
+                <div class="flex flex-row text-sm pb-7 border-b-2">
+                    <p>Published by <span class="text-newsea-secondary">{{ article.author }}</span></p>
+                    <p class="ml-auto">
+                        <i class="text-xs fa-solid fa-water"></i>
+                        {{ new Date(article.publishedAt).toLocaleDateString() }}
+                    </p>
+                </div>
                 <p class="text-xl">
                     {{ article.content }}
                 </p>
             </div>
-            <div class="flex flex-col gap-3 lg:border-l-2 lg:pl-4 w-full lg:w-8/12">
+            <div class="flex flex-col gap-3 px-3 lg:border-l-2 lg:pl-4 w-full lg:w-8/12">
                 <p class="text-xl font-bold py-3 border-t-2 lg:border-t-0 border-b-2">
                     To explore
                 </p>
@@ -69,14 +76,13 @@
         await axios.get(api2, {
             ...config,
             params: {
-                country: route.params.country,
+                country: route.params.country || 'us',
                 pageSize: 3,
                 page: Math.floor((Math.random() * 10) + 3),
             },
         })
         .then(res => {
             foryou.value = res.data.articles
-            console.log(foryou.value)
             loading.value = false
         })
         .catch(err => {

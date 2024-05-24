@@ -1,14 +1,19 @@
 <template>
     <div class="flex flex-row my-3 gap-3 h-36">
         <RouterLink :to="{name: 'news', params: {title: news.title}}" class="flex flex-1 flex-row gap-3 main-text-hover">
-            <div class="flex-1 flex flex-col gap-2 py-3">
+            <div class="flex-1 flex flex-col gap-2 py-3 h-full">
                 <p class="text-l font-bold line-clamp-2"
                     :class="{ 'text-white': isDark }"
                 >{{ news.title }}</p>
-                <p class="text-sm flex-1"
-                >{{ new Date(news.publishedAt).toLocaleDateString() }}
-                </p>
-                <p class="text-sm mb-auto line-clamp-2"
+                <div class="flex flex-row text-sm w-full italic">
+                    <p>
+                        {{ news.source.name }}
+                    </p>
+                    <p class="ml-auto"
+                    >{{ new Date(news.publishedAt).toLocaleDateString() }}
+                    </p>
+                </div>
+                <p class="text-sm mt-auto line-clamp-2"
                 >{{  news.description }}
                 </p>
 
