@@ -16,7 +16,7 @@
                     >
                         <li v-for="x in topics" class="flex-1 nav-item pl-7 md:pl-0 md:pr-4">
                             <button
-                                @click="store.setCategory(category)"
+                                @click="store.setCategory(x)"
                                 class="text-black text-l font-bold main-text-hover"
                             >
                                 {{ x.charAt(0).toUpperCase() + x.slice(1) }}
@@ -89,24 +89,3 @@
     
     
 </script>
-
-
-<style>
-.dropdown {
-  animation: dropdown 0.82s linear both;
-}
-
-@keyframes dropdown {
-  0% {
-    height: 0rem;
-  }
-
-  50% {
-    height: 9rem;
-  }
-
-  90% {
-    height: 15rem;
-  }
-}
-</style>

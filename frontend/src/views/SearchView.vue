@@ -40,7 +40,8 @@
 
                 </div>
 
-                    <div class="flex-1" v-if="showFilter && !loadingSource">
+                    <div class="flex-1 lg:h-auto " v-if="showFilter && !loadingSource"
+                    v-bind:class="{'hidden': !showFilter, 'flex': showFilter, 'dropdown': showFilter}">
                 <KeepAlive>
                         <SearchFilter @params="setParams"/>
                 </KeepAlive>
@@ -59,10 +60,8 @@
                     </ul>
 
                 </KeepAlive>
-
-                <div class="mt-32 flex align-center justify-center" v-if="loading">
-                    <Loading class="mt-auto" :text="'Loading'"/>
-                </div>
+=
+                <Loading class="mt-auto" :text="'Loading'"  v-if="loading"/>
                 <div class="c-search flex flex-col gap-5" v-if="nores">
                     <div class="flex flex-row">
                         <i class="fa-solid fa-ship text-7xl text-newsea-primary"></i>

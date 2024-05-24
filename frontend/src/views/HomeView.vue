@@ -4,6 +4,7 @@
     <HomeLocal class="flex-1"/>
     <HomeSearch class="flex-1"/>
   </main>
+  <Loading class="mt-auto" :text="'Loading'"  v-if="!loaded"/>
 </template>
 
 <script setup lang="ts">

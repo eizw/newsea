@@ -1,4 +1,5 @@
 <template>
+    <div class="mt-32 flex justify-center">
     <div class="flex flex-col gap-3">
         <p class="animate-pulse text-center text-xl">{{ text }}</p>
         <svg class="w-full h-full" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -40,6 +41,7 @@
             </g>
         </svg>
 
+    </div>
     </div>
 </template>
 

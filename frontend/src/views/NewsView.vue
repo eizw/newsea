@@ -1,6 +1,6 @@
 <template>
     <main class="c-page px-3">
-        <div class="mt-32 flex align-center justify-center" v-if="loading">
+        <div class="mt-32 flex justify-center" v-if="loading">
             <Loading class="mt-auto" :text="'Loading'"/>
         </div>
         <div class="flex flex-col lg:flex-row w-full lg:c-70 gap-4" v-if="article && foryou">

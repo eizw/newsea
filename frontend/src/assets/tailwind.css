@@ -59,4 +59,8 @@
     .c-search {
         @apply mt-32 flex items-center justify-center;
     }
+
+    .dropdown {
+        @apply transition-height duration-500 ease-in-out
+    }
 }

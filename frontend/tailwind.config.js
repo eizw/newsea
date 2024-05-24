@@ -5,6 +5,9 @@ export default {
     "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      transitionProperty: {
+        'height': 'height'
+      },
       colors: {
         "newsea-primary": "#248BF8",
         "newsea-secondary": "#004B80",
