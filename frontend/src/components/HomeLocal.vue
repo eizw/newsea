@@ -20,7 +20,6 @@
                 />
 
             </div>
-            <p class="text-right text-xl text-white">SEE MORE</p>
 
         </div>
     </div>

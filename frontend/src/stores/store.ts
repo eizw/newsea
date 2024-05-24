@@ -5,7 +5,7 @@ export const useStore = defineStore('store', {
     return {
       topNews: [] as any[],
       localNews: [] as any[],
-      searchHistory: [] as any[],
+      category: 'general' as string,
 
       apiKey: import.meta.env.VITE_NEWSAPI_KEY,
     }
@@ -17,6 +17,9 @@ export const useStore = defineStore('store', {
     setLocal(news: any) {
       this.localNews = news;
     },
+    setCategory(category: string) {
+      this.category = category;
+    }
   },
   getters: {
     getTopWithImg(): any {

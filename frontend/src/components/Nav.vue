@@ -15,11 +15,12 @@
                     <ul class="flex flex-col lg:flex-row lg:mt-0 gap-3 lg:gap-8"
                     >
                         <li v-for="x in topics" class="flex-1 nav-item pl-7 md:pl-0 md:pr-4">
-                            <RouterLink :to="{name: 'home'}" 
+                            <button
+                                @click="store.setCategory(category)"
                                 class="text-black text-l font-bold main-text-hover"
                             >
                                 {{ x.charAt(0).toUpperCase() + x.slice(1) }}
-                            </RouterLink>
+                            </button>
                             
                         </li>
                     </ul>
@@ -46,10 +47,11 @@
 <script setup lang="ts">
     import { RouterLink, useRoute, useRouter } from 'vue-router';
     import { ref } from 'vue'
+    import { useStore } from '@/stores/store'
 
     const route = useRoute()
     const router = useRouter()
-    const emit = defineEmits()
+    const store = useStore()
 
     const showMenu = ref(false)
     const topics = ref([

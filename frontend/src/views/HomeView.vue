@@ -37,6 +37,7 @@
           ...config,
           params: {
             country: 'us',
+            category: store.category,
             pageSize: 10,
           }
         })
@@ -54,6 +55,7 @@
           ...config,
           params: {
             country: 'my',
+            category: store.category,
             pageSize: 6,
           }
         })

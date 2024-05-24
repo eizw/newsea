@@ -102,7 +102,7 @@
     // ! FILTERS
     const resquery = ref('')
     const query = ref(route.query.q as string || '')
-    const filters = ref({} as any)
+    const filters = ref(route.query.filters as any)
     const page = ref(0)
 
     const news = ref([] as any)
@@ -160,7 +160,7 @@
             path: '/search',
             query: {
                 q: query.value,
-                page: filters.value.page
+                page: filters.value.page,
             }
         })
     }
@@ -187,12 +187,19 @@
     async function fetchNews(pageSize: number) {
         loading.value = true
         
-        let {exclude, ...temp} = filters.value
-        let params = {
-            q: (exclude) ? query.value + ('-'+exclude) : query.value,
-            ...temp
+        let params = {}
+        if (filters.value!=undefined) {
+            let {exclude, ...temp} = filters.value
+            params = {
+                q: (exclude) ? query.value + ('-'+exclude) : query.value,
+                ...temp
+            }
+        } else {
+            params = {
+                q: query.value
+            }
+
         }
-        console.log(temp)
         
         await axios.get(api, {
             ...config,
@@ -242,7 +249,14 @@
         }
 
         filters.value = val;
-        newSearch();
+        router.replace({
+            path: '/search',
+            query: {
+                q: query.value,
+                filters: filters.value
+            }
+        })
+
     }
 
 
