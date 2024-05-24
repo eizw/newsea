@@ -40,8 +40,9 @@
     const loading = ref(false)
 
     // API
-    const api: string = 'https://newsapi.org/v2/everything/'
-    const api2: string = 'https://newsapi.org/v2/top-headlines/'
+    const proxyUrl = "https://cors-anywhere.herokuapp.com/"
+    const api: string = `${proxyUrl}https://newsapi.org/v2/everything/`
+    const api2: string = `${proxyUrl}https://newsapi.org/v2/top-headlines/`
     const config = {
         headers: {
         'Authorization': store.apiKey,
@@ -57,7 +58,8 @@
     watch(route, (val) => {
         loading.value = true
         article.value = '';
-        if (route.params.country != '') {
+        console.log(route.params)
+        if (route.params.country) {
             getTopArticle();
         } else {
             getArticle();
@@ -105,12 +107,14 @@
 
     async function getArticle() {
         loading.value = true
+        let params = {
+            q: route.params.title,
+            searchIn: 'title'
+        }
+        console.log(params)
         await axios.get(api, {
             ...config,
-            params: {
-                q: route.params.title,
-                searchIn: 'title'
-            },
+            params,
         })
         .then(res => {
             article.value = res.data.articles[0]

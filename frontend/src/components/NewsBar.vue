@@ -6,7 +6,7 @@
                     :class="{ 'text-white': isDark }"
                 >{{ news.title }}</p>
                 <p class="text-sm flex-1"
-                >{{ news.date.toLocaleDateString() }}
+                >{{ new Date(news.publishedAt).toLocaleDateString() }}
                 </p>
                 <p class="text-sm mb-auto line-clamp-2"
                 >{{  news.description }}
@@ -30,7 +30,7 @@
             type: Object,
             default: {
                 title: 'No title provided',
-                date: new Date(),
+                publishedAt: new Date(),
                 urlToImage: null,
                 description: null,
             },

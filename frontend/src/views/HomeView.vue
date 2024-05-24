@@ -14,8 +14,8 @@
   import { ref, onMounted } from 'vue';
   import axios from 'axios'
 
-
-  const api: string = 'https://newsapi.org/v2/top-headlines/'
+  const proxyUrl = "https://cors-anywhere.herokuapp.com/"
+  const api: string = `${proxyUrl}https://newsapi.org/v2/top-headlines/`
   const store = useStore();
   const config = {
     headers: {

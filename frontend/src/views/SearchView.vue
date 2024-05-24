@@ -7,10 +7,10 @@
                     v-if="news.length > 0"
                     >
                         <p class="flex-1 text-3xl font-bold h-full ">
-                            {{ route.query.q }}
+                            {{ query }}
                         </p>
                         <p class="flex-1 text-l" >
-                            Showing {{ totalResults }} results for '<span class="font-bold">{{ route.query.q }}</span>'
+                            Showing {{ totalResults }} results for '<span class="font-bold">{{ query }}</span>'
                         </p>
                     </div>
 
@@ -50,7 +50,7 @@
             <div class="py-3">
                 <ul class="list-none" v-if="news">
                     <li class="border-b-2" v-for="i in news">
-                        <NewsBar :news="news"/>
+                        <NewsBar :news="i"/>
                     </li>
                 </ul>
                 <div class="mt-32 flex align-center justify-center" v-if="loading">
@@ -88,8 +88,9 @@
 
     const news = ref([] as any)
     const totalResults = ref(0)
-    const api: string = 'https://newsapi.org/v2/everything/'
-    const api_source: string = 'https://newsapi.org/v2/top-headlines/sources/'
+    const proxyUrl = "https://cors-anywhere.herokuapp.com/"
+    const api: string = `${proxyUrl}https://newsapi.org/v2/everything/`
+    const api_source: string = `${proxyUrl}https://newsapi.org/v2/top-headlines/sources`
     const config = {
         headers: {
         'Authorization': store.apiKey,
@@ -166,7 +167,6 @@
             q: query.value,
             ...filters.value
         }
-        console.log(params)
         
         await axios.get(api, {
             ...config,
@@ -180,7 +180,6 @@
             totalResults.value = res.data.totalResults
             news.value.push(...res.data.articles)
             news.value.splice(news.value.length+pageSize)
-            console.log(news.value)
             loading.value = false
         })
         .catch(err => {
