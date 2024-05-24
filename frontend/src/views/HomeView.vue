@@ -37,7 +37,7 @@
           ...config,
           params: {
             country: 'us',
-            pageSize: 5,
+            pageSize: 10,
           }
         })
         .then(res => {

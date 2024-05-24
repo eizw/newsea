@@ -34,5 +34,4 @@
     const store = useStore();
 
     const news = ref(store.localNews);
-    console.log('local', news.value)
 </script>

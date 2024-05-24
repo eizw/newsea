@@ -1,4 +1,5 @@
 <template>
+  <KeepAlive>
     <div class="flex flex-col sm:flex-col lg:flex-row gap-6 w-full" v-if="news">
       <NewsCard class="w-full lg:w-4/6 h-full" :news="news[0]" :isHead="true"/>
       <div class="grid grid-cols-2 gap-3 w-full lg:w-3/6">
@@ -8,6 +9,8 @@
           />
       </div>
     </div>
+    
+  </KeepAlive>
 </template>
 
 <script setup lang="ts">
@@ -18,5 +21,4 @@
   const store = useStore();
 
   const news = ref(store.getTopWithImg);
-  console.log(news.value)
 </script>

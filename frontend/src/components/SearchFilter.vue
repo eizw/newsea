@@ -1,6 +1,9 @@
 <template>
-    <div class="flex flex-col border-2 py-4 px-2 rounded-lg border-slate-300 shadow-md">
+    <div class="flex flex-col gap-5 border-2 py-4 px-2 rounded-lg border-slate-300 shadow-md">
         <div class="flex-1 flex-col flex gap-4 md:flex-row md:flex-wrap divide-x-2">
+            <!-- EXCLUDE -->
+            <ExcludeFilter @exclude="setExclude"/>
+            
             <!-- LANGUAGE -->
             <LangFilter @language="setLang" />
 
@@ -43,6 +46,7 @@
     import DomainFilter from '@/components/filters/DomainFilter.vue';
     import DateFilter from '@/components/filters/DateFilter.vue';
     import SortFilter from '@/components/filters/SortFilter.vue';
+    import ExcludeFilter from '@/components/filters/ExcludeFilter.vue';
 
     const searchStore = useSearchStore();
     const router = useRouter();
@@ -50,6 +54,7 @@
 
     const sources = ref(searchStore.getSources)
     const filters = ref({
+        exclude: [] as string[],
         language: 'en',
         searchIn: [] as string[],
         sources: [] as string[],
@@ -62,6 +67,7 @@
     const submit = () => {
         let temp = filters.value;
         let params = {
+            exclude: temp.exclude.join('-'),
             language: temp.language,
             searchIn: temp.searchIn.length > 0 ? temp.searchIn.join(',') : null,
             sources: temp.sources.join(','),
@@ -101,5 +107,8 @@
     const setDate = (val: string[]) => {
         filters.value.from = val[0]
         filters.value.to = val[1]
+    }
+    const setExclude = (val: string[]) => {
+        filters.value.exclude = val
     }
 </script>

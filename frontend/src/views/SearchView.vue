@@ -7,7 +7,7 @@
                     v-if="news.length > 0"
                     >
                         <p class="flex-1 text-3xl font-bold h-full ">
-                            {{ query }}
+                            {{ route.query.q }}
                         </p>
                         <p class="flex-1 text-l" >
                             Showing {{ totalResults }} results for '<span class="font-bold">{{ query }}</span>'
@@ -48,11 +48,14 @@
             
             
             <div class="py-3">
-                <ul class="list-none" v-if="news">
-                    <li class="border-b-2" v-for="i in news">
-                        <NewsBar :news="i"/>
-                    </li>
-                </ul>
+                <KeepAlive>
+                    <ul class="list-none" v-if="news">
+                        <li class="border-b-2" v-for="i in news">
+                            <NewsBar :news="i"/>
+                        </li>
+                    </ul>
+
+                </KeepAlive>
                 <div class="mt-32 flex align-center justify-center" v-if="loading">
                     <Loading class="mt-auto" :text="'Loading'"/>
                 </div>
@@ -116,7 +119,6 @@
 
     watch(() => route.query, (newQuery, oldQuery) => {
         // searchStore.addHistory(oldQuery, news)
-        console.log(newQuery)
         if (newQuery != oldQuery && newQuery != null) {
             newSearch()
         }
