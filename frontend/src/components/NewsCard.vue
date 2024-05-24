@@ -1,9 +1,13 @@
 <template>
     <div class="flex flex-col mt-5 mb-5 gap-3 main-text-hover">
-        <RouterLink :to="{name: 'topnews', params: {'country': (isDark) ? 'my' : 'us', 'title': news.title}}" class="flex-1" v-if="hasImg">
+        <RouterLink :to="{name: 'topnews', params: {'country': (isDark) ? 'my' : 'us', 'title': news.title}}" class="flex-1" v-if="hasImg && news.urlToImage != null">
             <img class="w-full object-cover max-h-none"
+                :class="[(isHead)?'h-104' : 'h-44']"
                 :src="news.urlToImage" alt="img"
             >
+        </RouterLink>
+        <RouterLink :to="{name: 'topnews', params: {'country': (isDark) ? 'my' : 'us', 'title': news.title}}" class="flex-1" v-if="hasImg && news.urlToImage == null">
+            <img class="text-center w-full" src="@/assets/newsea.svg">
         </RouterLink>
         <RouterLink :to="{name: 'topnews', params: {'country': (isDark) ? 'my' : 'us', 'title': news.title}}" class="mt-auto flex-1 flex">
             <p class="text-l font-bold mb-auto line-clamp-2"
@@ -30,7 +34,7 @@
         },
         isHead: {
             type: Boolean,
-            default: true,
+            default: false,
         },
         isDark: {
             type: Boolean,

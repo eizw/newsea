@@ -2,7 +2,7 @@
     <div class="flex flex-col gap-3">
         <p class="animate-pulse text-center text-xl">{{ text }}</p>
         <svg class="w-full h-full" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                           viewBox="-50 200 900 300" xml:space="preserve">
+                           viewBox="-50 200 900 300">
             <g id="DarkWaves" class="DarkWaves">
                 <g>
                     <linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="400.0005" y1="602" x2="400.0005" y2="202.3545">

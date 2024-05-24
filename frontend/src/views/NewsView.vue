@@ -1,11 +1,24 @@
 <template>
-    <main class="c-page">
-        <div class="flex flex-col lg:flex-row lg:c-70 gap-6 w-full">
+    <main class="c-page px-3">
+        <div class="mt-32 flex align-center justify-center" v-if="loading">
+            <Loading class="mt-auto" :text="'Loading'"/>
+        </div>
+        <div class="flex flex-col lg:flex-row lg:c-70 gap-4" v-if="article && foryou">
             <div class="flex flex-col gap-6 px-3 py-5">
-                <p class="text-2xl font-bold">{{ article.title }}</p>
+                <p class="text-3xl font-bold pb-7 border-b-2">{{ article.title }}</p>
                 <p class="text-xl">
                     {{ article.content }}
                 </p>
+            </div>
+            <div class="flex flex-col gap-3 lg:border-l-2 lg:pl-4 w-full lg:w-8/12">
+                <p class="text-xl font-bold py-3 border-t-2 lg:border-t-0 border-b-2">
+                    To explore
+                </p>
+                <NewsCard
+                    class="flex-1"
+                    v-for="i in foryou"
+                    :news="i"
+                />
             </div>
         </div>
     </main>
@@ -15,6 +28,8 @@
     import { ref, watch, onMounted } from 'vue';
     import { useRoute, useRouter } from 'vue-router';
     import { useStore } from '@/stores/store';
+    import Loading from '@/components/Loading.vue'
+    import NewsCard from '@/components/NewsCard.vue'
     import axios from 'axios';
 
     const route = useRoute()
@@ -36,16 +51,38 @@
 
     // VAR
     const article = ref({} as any)
+    const foryou = ref([] as any[])
     const content = ref('')
 
     watch(route, (val) => {
+        loading.value = true
         article.value = '';
         if (route.params.country != '') {
-            getTopArticle()
+            getTopArticle();
         } else {
-            getArticle()
+            getArticle();
         }
+        getForYou();
     }, {deep: true, immediate: true})
+
+    async function getForYou() {
+        await axios.get(api2, {
+            ...config,
+            params: {
+                country: route.params.country,
+                pageSize: 3,
+                page: Math.floor((Math.random() * 10) + 3),
+            },
+        })
+        .then(res => {
+            foryou.value = res.data.articles
+            console.log(foryou.value)
+            loading.value = false
+        })
+        .catch(err => {
+            console.log(err.response.data)
+        })
+    }
 
     async function getTopArticle() {
         loading.value = true
@@ -58,7 +95,6 @@
         })
         .then(res => {
             article.value = res.data.articles[0]
-            console.log(article.value)
             loading.value = false
         })
         .catch(err => {
